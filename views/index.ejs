@@ -1,0 +1,33 @@
+<%- include("partials/header") %>
+
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form action="/add" method="POST">
+            <div class="input-container">
+                <input type="text" name="task" id="task" placeholder="Add a new task" required>
+                <div>
+                    <p >Deadline</p>
+                    <input type="date" name="date" id="date" required>
+                </div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+        <ul class="task-list">
+            <% if (tasks.length == 0) { %>
+                <li>You have no any task with an upcoming deadline!</li>
+            <% } else%>
+            <% tasks.forEach(function(task, index) { %>
+                <li>
+                    <span><%= index + 1 %>.</span>
+                    <span class="task-text"><%= task.name %></span>
+                    <span class="date-text"><%= task.date %></span>
+                    <form action="/delete/<%= index %>" method="POST" class="delete-form">
+                        <button type="submit">Done</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+<%- include("partials/footer") %>
+
